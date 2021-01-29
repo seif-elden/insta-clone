@@ -1,0 +1,27 @@
+<!--  I AM NOT A FRONT END DEVELOPER {I HATE CSS / } IS EXECUSE MY BAD CODE -->
+{% extends 'main.html' %}
+
+{% block body %}
+  <div class="container">
+    <h1 class="text-center logo my-4">
+    </h1>
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10 col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">Log in</h3>
+            <form method="post" >
+              {% csrf_token %}
+              <input type="hidden" name="next" value="{{ next }}">
+              {% include 'form.html' %}
+              <button type="submit" class="btn btn-primary btn-block">Log in</button>
+            </form>
+          </div>
+          <div class="card-footer text-muted text-center">
+            Create New account <a href="{%url 'account:signup'%}">Sign up </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock body%}

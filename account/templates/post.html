@@ -1,0 +1,65 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}
+post
+{% endblock title %}
+
+{% block body %}
+<link rel="stylesheet" href="{% static 'css/comment.css'%}">
+
+
+
+
+
+<div class="container " >
+        <div class="h1 d-flex " 
+        style="background-color:black; color:white; width: 550px; margin: 20px auto; 
+        height: 60px; padding: 0px 20px; " >
+        <img src="/media/{{post.post_more_user_info.profile_photo}}" class="rounded-circle" 
+        width="50" height="50" style="margin-right: 20px">
+        <a href="{% url 'account:other_user_profile' post.created_by %}" style="color:white;text-decoration: none;">{{post.created_by}}</a>
+        </div>
+        <div class="d-flex justify-content-center "> 
+        <img src='/media/{{post.image}}' width=300px style="margin-top: 40px">
+        </div>
+        <div class="h1 d-flex justify-content-center ">
+        {{post.caption}}
+        </div>
+        <hr>
+        {% if comment %}
+        <a> see comments</a>
+        {% endif %}
+    <br>
+    {% for comment in comment %}
+
+
+    	<div class="be-comment">
+		<div class="be-img-comment">	
+				<img src="/media/{{comment.created_by_photo.profile_photo}}" alt="" class="be-ava-comment">
+		</div>
+		<div class="be-comment-content">
+			
+				<span class="be-comment-name">
+					<a href="{% url 'account:other_user_profile' comment.created_by %}">{{comment.created_by}}</a>
+					</span>
+				<span class="be-comment-time">
+					<i class="fa fa-clock-o"></i>
+					{{comment.created_dt}}
+				</span>
+
+			<p class="be-comment-text">
+				{{comment.comment}}
+			</p>
+		</div>
+	</div>
+    {% endfor %}
+    <form method="post" >
+        {% csrf_token %}
+        {{form}}
+        <button type="submit" class="btn btn-primary btn-block">comment</button>
+    </form>
+    <br>
+    <br>
+</div>
+
+{% endblock body %}

@@ -1,0 +1,29 @@
+ {% comment %} I AM NOT A FRONT END DEVELOPER {I HATE CSS / } IS EXECUSE MY BAD CODE  {% endcomment %}
+<DOCTYPE html!>
+{% load static %}
+<html>
+<head>
+<title>{% block title %}  {% endblock title %}</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/style12.css'%}">
+<link rel="stylesheet" href="{% static 'css/bootstrap.css'%}">
+<link rel="stylesheet" href="{% static 'css/all.css'%}">
+<link rel="stylesheet" href="{% static 'css/test.css'%}">
+
+    {% block head %}
+    {% endblock %}
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" >
+</head>
+<body>
+{% include "header.html" %}
+
+{% block body %}
+{% endblock body %}
+<script src="{% static 'js/test.js'%}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

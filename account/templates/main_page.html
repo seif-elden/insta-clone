@@ -1,0 +1,42 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}
+home page
+{% endblock title %}
+
+{% block body %}
+<link rel="stylesheet" href="{% static 'css/card.css'%}">
+
+<div class="container" >
+    <div class="h1">
+        welcome to instaa clone
+    </div>
+    <div class="container" >
+        <h3> 
+            This is clone of some features of instagram  not the best but it was great to work in and iam still adding features
+            <br><br>
+            <span style="color:red;">"This is my first project that I  make without following any tutorials" </span>
+        <h3>
+    </div>
+    <br>
+    <hr>
+    <h1>About me</h1>
+
+    <div class="card"> 
+					<div class="front"><img src="/media/my_photo.jpg" width="300" height="400"></div>
+					<div class="back">
+						<div class="details">
+							<h2>seif elden<br><span>web developer</span></h2>
+							<div class="social-icon">
+								<a href="https://www.facebook.com/jhone.sina.77" target=_blank><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+								<a href="https://www.instagram.com/seif_elden___" target=_blank><i class="fa fa-instagram" aria-hidden="true"></i></a>
+								<a href="https://www.twitter.com/seeif_15" target=_blank><i class="fa fa-twitter"></i></a>
+							</div>
+							<h1>Iam a back end web developer "consider myself beginner" </h1>
+						</div>
+					</div>
+				</div>	
+
+</div>
+{% endblock body %}

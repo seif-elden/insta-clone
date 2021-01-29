@@ -1,0 +1,52 @@
+{% extends 'main.html' %}
+
+{% block title %}
+followers
+{% endblock title %}
+
+{% block body %}
+
+<style>
+/* unvisited link */
+a:link {
+  color: black;
+}
+
+/* mouse over link */
+a:hover {
+  color: hotpink;
+}
+
+</style>
+
+    <div class="container">
+        <h1>followers ... </h1>
+        {% if followers %}
+        <table class="table">
+            <thead style="color:white;background-color:black;">
+            <tr>
+                <th>user name</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for follower in followers %}
+            <tr>
+                <td>
+                <img src="/media/{{follower.more_follower_info.profile_photo}}" class="rounded-circle" width="60" height="60">
+                <a href="{% url 'account:other_user_profile' follower.followers %}" > <h3 style="display:inline;">{{follower.followers}}</h3></a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody> 
+        </table>
+
+        {% else %}
+        <h1 style="color:red">no one loves you  and no one follows you</h1>
+
+        {% endif %}
+
+
+    </div>
+
+{% endblock body %}

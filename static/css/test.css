@@ -1,0 +1,57 @@
+/* start for seif */
+.pics {
+  padding: 40px 0;
+  background-color: #ccc;
+}
+.pics h2 {
+  width: 250px;
+  margin: 20px auto;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgb(77, 77, 77);
+}
+.pics .row div {
+  margin-bottom: 30px;
+  position: relative;
+  height: 300px;
+}
+.pics .row div img {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 10px;
+
+  box-shadow: 6px 7px #999;
+}
+.pics .row div div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  background-color: #32c2bbf3;
+  color: #ffff;
+  border-radius: 10px;
+  display: none;
+  transition: all 2s ease-in-out;
+}
+.pics .row div .overlay.active {
+  display: block;
+}
+.pics .row div .overlay h3 {
+  margin: 40px 0;
+}
+.pics .row div .overlay p {
+  line-height: 2;
+}
+.pics .row div .overlay i {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+  font-size: 33px;
+}
+.pics .row div .overlay i.active {
+  color: red;
+}
+/* end for seif */

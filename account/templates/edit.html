@@ -1,0 +1,23 @@
+<!--  I AM NOT A FRONT END DEVELOPER {I HATE CSS / } IS EXECUSE MY BAD CODE -->
+{% extends 'main.html' %}
+{% load widget_tweaks %}
+
+{% block title %}
+edit profile
+{% endblock title %}
+
+{% block body %}
+<div class="container">
+
+<h1>edit ...</h1>
+<br>
+{% if user_info.profile_photo %}
+<img src="/media/{{user_info.profile_photo}}" style="display: inline; "width=100; height=100; > <br>  
+{% endif %}
+<form method="post" novalidate  enctype="multipart/form-data">
+    {% csrf_token %}
+    {% include 'form.html' %}
+    <br>
+    <button type="submit" class="btn btn-primary btn-block">update</button>
+</form>
+{% endblock body %}

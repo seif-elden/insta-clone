@@ -1,0 +1,16 @@
+<!--  I AM NOT A FRONT END DEVELOPER {I HATE CSS / } IS EXECUSE MY BAD CODE -->
+{% extends 'main.html' %}
+
+{% block title %} sign up 
+{% endblock title %}
+{% block body %}
+<h1>sign</h1>
+<div class="container">
+<form method="post" >
+    {% csrf_token %}
+    {% include 'form.html' %}
+    <br>
+    <button type="submit" class="btn btn-primary btn-block">Create an account</button>
+    </div>
+</form>
+{% endblock body %}

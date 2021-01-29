@@ -1,0 +1,18 @@
+<!--  I AM NOT A FRONT END DEVELOPER {I HATE CSS / } IS EXECUSE MY BAD CODE -->
+{% extends 'main.html' %}
+
+{% block title %} 
+add post
+{% endblock title %}
+
+
+{% block body %}
+<div class="container">
+<form method="post" novalidate  enctype="multipart/form-data">
+    {% csrf_token %}
+    {% include 'form.html' %}
+    <br>
+    <button type="submit" class="btn btn-primary btn-block">update</button>
+    </div>
+</form>
+{% endblock body %}

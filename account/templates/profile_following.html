@@ -1,0 +1,40 @@
+{% extends 'main.html' %}
+
+{% block title %}
+following
+{% endblock title %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>following ... </h1>
+        {% if following %}
+        <table class="table">
+            <thead style="color:white;background-color:black;">
+            <tr>
+                <th>user name</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for follower in following %}
+            <tr>
+                <td>
+                <img src="/media/{{follower.more_followed_user_info.profile_photo}}" class="rounded-circle" width="60" height="60">
+                <a href="{% url 'account:other_user_profile' follower.followed_user %}" > <h3 style="display:inline;">{{follower.followed_user}}</h3></a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody> 
+        </table>
+
+        {% else %}
+        <h1 style="color:red">روش انت كده ؟؟</h1>
+
+        {% endif %}
+
+
+    </div>
+
+
+{% endblock body %}

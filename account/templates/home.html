@@ -1,0 +1,52 @@
+{% extends 'main.html' %}
+
+{% block title %} instaaclone
+{% endblock title %}
+ 
+{% block body %} 
+
+<style>
+/* relevant styles */
+.img__wrap {
+  position: relative;
+}
+
+.img__description {
+  background: #7e858a;
+  color: #fff;
+  visibility: hidden;
+
+  /* transition effect. not necessary */
+  transition: opacity .2s, visibility .2s;
+}
+
+.img__wrap:hover .img__description {
+  visibility: visible;
+  opacity: 1;
+}
+</style>
+<div class="container text-center" >
+
+        {% for p in photoes %}
+        <div class="h1 d-flex " 
+        style="background-color:black; color:white; width: 250px; margin: 20px auto; 
+        height: 60px; padding: 0px 20px; " >
+        <img src="/media/{{p.post_more_user_info.profile_photo}}" class="rounded-circle"
+        width="50" height="50" style="margin-right: 20px">
+        <a href="{% url 'account:other_user_profile' p.created_by %}" style="color:white;text-decoration: none;">{{p.created_by}}</a>
+        </div>
+        <div class="d-flex justify-content-center "> 
+        <a href="{% url 'post' p.id %}">
+        <div <div class="img__wrap">
+        <img src='/media/{{p.image}}' width=200px style="margin-top: 40px" title="view pic" class="img__img">
+        <p class="img__description" >view pic</p>
+        </div>
+        </a>
+        </div>
+        <div class="h1 d-flex justify-content-center ">
+        {{p.caption}}
+        </div>
+        {% endfor %}
+</div>
+
+{% endblock body %}

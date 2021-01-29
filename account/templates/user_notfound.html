@@ -1,0 +1,30 @@
+{% extends 'main.html' %}
+
+{% block title %}
+    user not found
+{% endblock title %}
+
+{% block body %}
+<div class="container h1">
+we couldnot find any user with that name please make sure you wrote it right
+<br>
+<br>
+<div class="container">
+<h3>
+maybe you ment :
+</h3>
+<br>
+<div class="container">
+{% for user in users %}
+<a href="{% url 'account:other_user_profile' user.user %}"  style="text-decoration: none;">
+<img src="/media/{{user.profile_photo}}" class="rounded-circle" width="100" height="100">
+{{user.user}}
+</a>
+<br>
+<hr>
+{% endfor %}
+</div>
+</div>
+</div>
+
+{% endblock body %}
