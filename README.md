@@ -1,9 +1,3 @@
-### super user account 
-username : admin
-<br>
-password : admin
-
-
 # insta-clone
 
 insta-clone is clone of some features of instagram using django and channels not the best but it was great to work in and iam still adding features
@@ -26,8 +20,12 @@ note: if you are in windows you can install memurai to work as channel layer
 ```bash
 pip install -r requirements.txt
 ```
+5- create superuser
+```bash
+py manage.py createsuperuser
+```
 
-5-run server 
+6-run server 
 ```bash
 py manage.py runserver
 ```
