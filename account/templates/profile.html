@@ -80,12 +80,24 @@ profile page
                     {% if post.caption  %}
                     <h3 class="text-center">{{post.caption}} </h3>
                     {% endif %}
-                <a href="{% url 'post' post.pk %}"><h3>comments</h3></a>
+                <a href="{% url 'post' post.pk %}"><h3>view post</h3></a>
                 <form method="post" onsubmit="return confirm('Do you want to delet the post?');">
                 {% csrf_token %}
                 <input type="hidden" name="pk" value="{{post.pk}}">
                 <button type="submit" class="btn btn-primary btn-block " >delet</button>
                 </form>
+                <form method="post" id="myForm">
+                {% csrf_token %}
+                <button style="color:none;">
+                {% if request.user in post.like.all%}
+                <i class="fas fa-heart active"></i>
+                {% else %}
+                <i class="fas fa-heart" style="color:white;"></i>
+                {% endif %}
+                <input type="hidden" name="pk" value="{{post.pk}}">
+                <input type="hidden" name="secret" value="like">
+                </button>
+                </form>   
                   </div>
                   </div>
                     {% endfor %}

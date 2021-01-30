@@ -1,10 +1,23 @@
-from django.shortcuts import render  , redirect  ,HttpResponse , get_object_or_404
+from django.shortcuts import render  , redirect  ,HttpResponse , get_object_or_404 , HttpResponseRedirect
 from .forms import SignUpForm , edit_info , postt , comment_form
 from .models import photo , more_user_info  , follow , comments
 from django.contrib.auth.models import User
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
 
+
+# help function
+############
+def like(request , id):
+    photo_To_Like = photo.objects.get(id=id)
+    if request.user in photo_To_Like.like.all() :
+        photo_To_Like.like.remove(request.user)
+        print("unliked")
+    else:
+        photo_To_Like.like.add(request.user) 
+        print("liked")
+    return 
+###########  
 # Create your views here.
 
 @login_required
@@ -55,11 +68,14 @@ def profile(request):
 
     # DELET USER POST
     if request.method =='POST':
-        post = photo.objects.get(pk=request.POST["pk"])
+        if 'secret' in request.POST:
+            like(request,request.POST["pk"])
+        else:
+            post = photo.objects.get(pk=request.POST["pk"])
 
-        if request.user  == post.created_by:
-            post.delete()
-    
+            if request.user  == post.created_by:
+                post.delete()
+        
     # TRY GET USER POSTS IF EXSIST
     try:
         posts = photo.objects.filter(created_by=request.user)
@@ -150,21 +166,24 @@ def other_user_profile(request , user_name):
 
     
     if request.method =='POST':
-    
-        if  str(request.user) == user_name :
-            pass # not gone follow your self
+        if 'secret' in request.POST:
+            like(request,request.POST["pk"])
         else:
-            if is_follower :
-                is_follower.delete()
+            
+            if  str(request.user) == user_name :
+                pass # not gone follow your self
             else:
-                follow.objects.create(
-                    followed_user= other_user_info.user,
-                    followers= request.user ,
-                    more_follower_info = more_user_info.objects.get(user=request.user) ,
-                    more_followed_user_info =  other_user_info ,
-                )
+                if is_follower :
+                    is_follower.delete()
+                else:
+                    follow.objects.create(
+                        followed_user= other_user_info.user,
+                        followers= request.user ,
+                        more_follower_info = more_user_info.objects.get(user=request.user) ,
+                        more_followed_user_info =  other_user_info ,
+                    )
 
-            return redirect("account:other_user_profile",user_name=user_name)
+                return redirect("account:other_user_profile",user_name=user_name)
              
             
     context = {"other_user_photos":other_user_photos,"other_user_info":other_user_info,"posts_count":posts_count,"follows_count":follows_count,"is_follower":  is_follower}
@@ -187,13 +206,16 @@ def post(request , id):
     post = get_object_or_404(photo,pk=id)
     photo_of_comment = more_user_info.objects.get(user=request.user)
     if request.method =='POST':
-        form=comment_form(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False) 
-            comment.created_by = request.user
-            comment.post = post
-            comment.created_by_photo = photo_of_comment
-            comment.save()
+        if 'secret' in request.POST:
+            like(request,request.POST["pk"])
+        else:
+            form=comment_form(request.POST)
+            if form.is_valid():
+                comment = form.save(commit=False) 
+                comment.created_by = request.user
+                comment.post = post
+                comment.created_by_photo = photo_of_comment
+                comment.save()
 
     comment = comments.objects.filter(post=post)
 

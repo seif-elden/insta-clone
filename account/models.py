@@ -27,6 +27,7 @@ class photo(models.Model):
     created_by = models.ForeignKey(User,related_name='User_uploaded_files',on_delete=models.CASCADE)
     created_dt = models.DateTimeField(auto_now_add=True)
     post_more_user_info = models.ForeignKey(more_user_info , related_name='more_user_info',on_delete=models.CASCADE, null=True,blank=True)
+    like = models.ManyToManyField(User,related_name='like', blank=True)
 
 
     def __str__(self):
