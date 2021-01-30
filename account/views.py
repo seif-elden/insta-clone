@@ -9,13 +9,10 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def home(request):
-    x = []
     following = follow.objects.filter(followers=request.user)
     if not following:
         return render(request,"not_follow.html")
-
-    for f in following:
-        x.append(f.followed_user)
+    x = [f.followed_user for f in following]
     photoes = photo.objects.filter(created_by__in=x).order_by("-created_dt")
     return render(request,"home.html",{"photoes":photoes})
 
@@ -70,8 +67,13 @@ def profile(request):
     except:
         posts = None
 
+    try :
+        user_info = more_user_info.objects.get(user=request.user)
+    except:
+        user_info = more_user_info.objects.create(
+                    user=request.user
+                )
 
-    user_info = more_user_info.objects.get(user=request.user)
     follows_count = follow.objects.filter(followed_user=request.user).count()
     following_count = follow.objects.filter(followers=request.user).count()
     posts_count = photo.objects.filter(created_by=request.user).count()
@@ -83,7 +85,12 @@ def profile(request):
 @login_required
 def profile_edit(request):
     
-    user_info = more_user_info.objects.get(user=request.user)
+    try :
+        user_info = more_user_info.objects.get(user=request.user)
+    except :
+        user_info = more_user_info.objects.create(
+                    user=request.user
+                )
     if request.method =='POST':
         form = edit_info(request.POST , request.FILES ,instance=user_info)
         if form.is_valid():
@@ -103,7 +110,13 @@ def add_post(request):
         if form.is_valid():
             photo = form.save(commit=False)
             photo.created_by = request.user
-            photo.post_more_user_info = more_user_info.objects.get(user=request.user)
+            try :
+                user_info = more_user_info.objects.get(user=request.user)
+            except :
+                user_info = more_user_info.objects.create(
+                            user=request.user
+                        )
+            photo.post_more_user_info = user_info
             photo.save()
         return redirect("account:profile")
 
@@ -123,8 +136,11 @@ def other_user_profile(request , user_name):
         posts_count = photo.objects.filter(created_by=user_id.pk).count()
     except:
         other_user_photos = None
+    try :
+        other_user_info = more_user_info.objects.get(user=user_id.pk)
+    except :
+        other_user_info =  None
 
-    other_user_info = more_user_info.objects.get(user=user_id.pk)
 
     try:
         follows_count = follow.objects.filter(followed_user=user_id.pk).count()

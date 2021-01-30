@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 
 class more_user_info(models.Model):
-    profile_photo = models.ImageField(null=True , blank=True)
+    profile_photo = models.ImageField(null=True , blank=True , default='user.png')
     user = models.OneToOneField(User , related_name='user_info',on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=50 , null=True , blank=True)
     bio = models.CharField(max_length=50 , null=True , blank=True)
