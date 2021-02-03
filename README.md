@@ -2,6 +2,31 @@
 
 insta-clone is clone of some features of instagram using django and channels not the best but it was great to work in and iam still adding features
 
+
+## features
+
+
+1 /profile page where you can add and see all your photos 
+
+
+<img src="/media/profile-page.png" width="350" title="hover text">
+
+
+
+2 /see others profile and follow
+
+
+<img src="/media/see others profile and follow.png" width="350" title="hover text">
+
+
+3 /caht where you can talk too others
+
+
+<img src="/media/chat.png" width="350" title="hover text">
+
+
+
+
 ## Installation
 
 1- downlad the repo
