@@ -53,9 +53,6 @@ def signup(request):
             if form.is_valid():
                 user = form.save()
                 auth_login(request,user)
-                more_user_info.objects.create(
-                    user=request.user
-                )
 
                 return redirect('account:profile')
 
@@ -83,12 +80,7 @@ def profile(request):
     except:
         posts = None
 
-    try :
-        user_info = more_user_info.objects.get(user=request.user)
-    except:
-        user_info = more_user_info.objects.create(
-                    user=request.user
-                )
+    user_info = more_user_info.objects.get(user=request.user)
 
     follows_count = follow.objects.filter(followed_user=request.user).count()
     following_count = follow.objects.filter(followers=request.user).count()
@@ -101,12 +93,8 @@ def profile(request):
 @login_required
 def profile_edit(request):
     
-    try :
-        user_info = more_user_info.objects.get(user=request.user)
-    except :
-        user_info = more_user_info.objects.create(
-                    user=request.user
-                )
+    user_info = more_user_info.objects.get(user=request.user)
+
     if request.method =='POST':
         form = edit_info(request.POST , request.FILES ,instance=user_info)
         if form.is_valid():
@@ -126,12 +114,7 @@ def add_post(request):
         if form.is_valid():
             photo = form.save(commit=False)
             photo.created_by = request.user
-            try :
-                user_info = more_user_info.objects.get(user=request.user)
-            except :
-                user_info = more_user_info.objects.create(
-                            user=request.user
-                        )
+            user_info = more_user_info.objects.get(user=request.user)
             photo.post_more_user_info = user_info
             photo.save()
         return redirect("account:profile")
