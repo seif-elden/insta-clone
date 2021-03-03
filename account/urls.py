@@ -14,6 +14,7 @@ urlpatterns = [
     path('myprofile/add_post',views.add_post,name='add_post'),
     path('myprofile/edit',views.profile_edit,name='profile_edit'),
     path('profile/<user_name>',views.other_user_profile,name='other_user_profile'),
+    path('post/like/',views.like,name='like'),
 
 
 ]

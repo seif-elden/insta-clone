@@ -9,6 +9,15 @@ profile page
 
 {% block body %}
 
+<style>
+i {
+    color: #000;
+} 
+i.active {
+    color: #f00;
+}
+</style>
+
 <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 60px; background-image: url({% static 'img/shattered.png'%}); background-size: cover; background-position: center top;">
     <div class="container">
     <br>
@@ -87,18 +96,11 @@ profile page
         <h3 class="text-center">{{post.caption}} </h3>
         {% endif %}
         <a href="{% url 'post' post.pk %}"><h3>view post</h3></a>
-                        <form method="post" id="myForm">
-                {% csrf_token %}
-                <button style="color:none;" >
                 {% if request.user in post.like.all%}
-                <i class="fas fa-heart" style="color:red;"></i>
+                <i class="fas fa-heart active " id="{{post.pk}}"></i>
                 {% else %}
-                <i class="fas fa-heart" style="color:white;"></i>
+                <i class="fas fa-heart"  id="{{post.pk}}"></i>
                 {% endif %}
-                <input type="hidden" name="pk" value="{{post.pk}}">
-                <input type="hidden" name="secret" value="like">
-                </button>
-                </form> 
       </div>
       </div>
         {% endfor %}
@@ -110,6 +112,11 @@ profile page
 </div>
 </div>
 </div>
+                <script>
+                   $("i").click(function (){
+                    $.post("{% url 'account:like' %}", {pk:$(this).attr("id"), csrfmiddlewaretoken : "{{ csrf_token }}"})
+                    }); 
+                </script>
 
 
 

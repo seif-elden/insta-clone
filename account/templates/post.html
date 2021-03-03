@@ -25,18 +25,29 @@ post
         <div class="h1 d-flex justify-content-center ">
         {{post.caption}}
         </div>
-                <form method="post" id="myForm">
-                {% csrf_token %}
-                <button style="color:none;" class="btn btn-primary btn-block">
-                {% if request.user in post.like.all%}
-                <i class="fas fa-heart" style="color:red;"></i>
-                {% else %}
-                <i class="fas fa-heart" style="color:white;"></i>
-                {% endif %}
-                <input type="hidden" name="pk" value="{{post.pk}}">
-                <input type="hidden" name="secret" value="like">
-                </button>
-                </form> 
+
+        {% if request.user in post.like.all%}
+        <i class="fas fa-heart" style="color:red; " ></i>
+        {% else %}
+        <i class="fas fa-heart" style="color:black;"></i>
+        {% endif %}
+        <script>
+            x = document.querySelector("i");
+            x.onclick=function(){
+                if (x.style.color === "red"){
+                    x.style.color = "black"
+                }else{
+                    x.style.color = "red"
+                }
+
+            $.ajax({
+                    method : "Post",
+                    url : "{% url 'account:like' %}",
+                    data : {"csrfmiddlewaretoken" : "{{ csrf_token }}", "pk" : {{post.pk}}}
+                })
+            }
+        </script>
+        
         <hr>
         {% if comment %}
         <a> see comments</a>
